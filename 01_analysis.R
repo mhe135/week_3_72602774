@@ -62,3 +62,81 @@ flights_means_with_names <- flights_means %>%
 print(flights_means_with_names)
 
 4:
+# Install DT package if it's not already installed
+if (!require(DT)) install.packages("DT")
+
+# Load the DT package
+library(DT)
+library(shiny)
+library(DT)  # Ensure the DT library is loaded
+
+ui <- fluidPage(
+  selectInput("airline", "Choose an Airline", choices = NULL),
+  dataTableOutput("results")  # Correct function for displaying DataTable
+)
+
+server <- function(input, output, session) {
+  data <- reactiveVal()
+  
+  # Update airline choices based on available data
+  observe({
+    # Example data update for select input
+    updateSelectInput(session, "airline", choices = unique(c("Airline A", "Airline B")))
+  })
+  
+  # Reactive table output using renderDT
+  output$results <- renderDT({
+    req(data())  # Ensure data is loaded
+    data.frame(Airline = c("Airline A", "Airline B"), Delays = c(10, 20))  # Example data frame
+  })
+}
+
+shinyApp(ui, server)
+
+4.1:
+# Install data.table if not already installed
+if (!require(data.table)) {
+  install.packages("data.table")
+  library(data.table)
+} else {
+  library(data.table)}
+
+# Load other necessary packages
+library(shiny)
+library(DT)
+# Assuming 'flights' is a data frame loaded previously
+flights_dt <- as.data.table(flights)
+
+# Example operation: Calculating average delays by airline using data.table
+flights_means <- flights_dt[, .(avg_dep_delay = mean(dep_delay, na.rm = TRUE),
+                                avg_arr_delay = mean(arr_delay, na.rm = TRUE)), by = carrier]
+
+# Sort by average departure delay
+setorder(flights_means, avg_dep_delay)
+
+4.2:
+library(data.table)
+
+# Convert the flights dataframe to a data table
+flights_dt <- as.data.table(flights)
+
+# Select columns, calculate means, and sort by mean departure delay
+flights_summary <- flights_dt[, .(dep_delay, arr_delay), by = .(carrier)][
+  , .(mean_dep_delay = mean(dep_delay, na.rm = TRUE),
+      mean_arr_delay = mean(arr_delay, na.rm = TRUE)), by = carrier][
+        order(mean_dep_delay)]
+
+4.3:
+# Tidyverse script run time
+system.time({
+  mtcars %>%
+    filter(cyl > 6) %>%
+    select(cyl, mpg)})
+
+# Data.table script run time
+system.time({
+  dt <- as.data.table(mtcars)
+  result <- dt[cyl > 6, .(cyl, mpg)]})
+
+
+
