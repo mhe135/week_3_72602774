@@ -1,32 +1,6 @@
 #3.7:
-# Executes the code in the cleaning script
+# Executes the code in the entire script being named
 source("00_clean.R")
-
-# Example analysis code
-# Note: Replace 'flights_clean' and 'more_code()' with actual variable names and functions from your project
-
-# Assuming 'flights_clean' is the cleaned dataset from 00_clean.R
-# Example of summarizing the data
-summary(flights_clean)
-
-# Example of a simple data transformation and visualization
-library(ggplot2)
-
-# Replace 'column_x' and 'column_y' with actual column names from your dataset
-flights_clean %>%
-  ggplot(aes(x = column_x, y = column_y)) +
-  geom_point() +
-  labs(title = "Scatter plot of Column X vs Column Y",
-       x = "Column X",
-       y = "Column Y")
-
-# Example of grouping and summarizing the data
-flights_summary <- flights_clean %>%
-  group_by(column_group) %>%
-  summarise(mean_value = mean(column_value, na.rm = TRUE))
-
-# Print the summary
-print(flights_summary)
 
 #3.8:
 # Load the dplyr library
@@ -104,13 +78,6 @@ library(shiny)
 library(DT)
 # Assuming 'flights' is a data frame loaded previously
 flights_dt <- as.data.table(flights)
-
-# Example operation: Calculating average delays by airline using data.table
-flights_means <- flights_dt[, .(avg_dep_delay = mean(dep_delay, na.rm = TRUE),
-                                avg_arr_delay = mean(arr_delay, na.rm = TRUE)), by = carrier]
-
-# Sort by average departure delay
-setorder(flights_means, avg_dep_delay)
 
 #4.2:
 library(data.table)
