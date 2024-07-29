@@ -1,16 +1,27 @@
-3.3:
+#3.3:
+# Check if tidyverse package is installed and install if not
 if (!requireNamespace("tidyverse", quietly = TRUE)) {
-  install.packages("tidyverse")}
-if (!requireNamespace("nycflights13", quietly = TRUE)) {
-  install.packages("nycflights13")}
-suppressPackageStartupMessages(library(tidyverse))
-library(nycflights13)
+  install.packages("tidyverse")
+}
 
-3.4
+# Check if nycflights13 package is installed and install if not
+if (!requireNamespace("nycflights13", quietly = TRUE)) {
+  install.packages("nycflights13")
+}
+
+# Load the packages
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(nycflights13))
+
+# Display the first few rows of the flights dataset
+head(flights)
+
+
+#3.4
 # Reading flights dataset
 head(flights)
 
-3.5:
+#3.5:
 # Load the Tidyverse library, which includes dplyr
 library(tidyverse)
 # Selecting only the carrier and delay variables
@@ -28,7 +39,7 @@ flights_summary <- flights_clean %>%
 # Printing the summary to check the results
 print(flights_summary)
 
-3.6:
+#3.6:
 # Load necessary libraries
 library(nycflights13)
 library(dplyr)

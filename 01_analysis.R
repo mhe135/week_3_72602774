@@ -1,36 +1,34 @@
-3.7:
-# Load the cleaned data
+#3.7:
+# Executes the code in the cleaning script
 source("00_clean.R")
 
-# Continue with analysis: Group by airline and calculate average delays
-summary_delays <- flights_with_airlines %>%
-  group_by(airline_name) %>%
-  summarize(
-    avg_dep_delay = mean(mean_dep_delay),
-    avg_arr_delay = mean(mean_arr_delay),
-    .groups = 'drop')
-# Load ggplot2 for visualization
+# Example analysis code
+# Note: Replace 'flights_clean' and 'more_code()' with actual variable names and functions from your project
+
+# Assuming 'flights_clean' is the cleaned dataset from 00_clean.R
+# Example of summarizing the data
+summary(flights_clean)
+
+# Example of a simple data transformation and visualization
 library(ggplot2)
 
-# Create a plot of the average departure and arrival delays
-ggplot(summary_delays, aes(x = reorder(airline_name, avg_dep_delay), y = avg_dep_delay)) +
-  geom_col(fill = "steelblue") +
-  labs(title = "Average Departure Delays by Airline",
-       x = "Airline",
-       y = "Average Departure Delay (minutes)") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  geom_text(aes(label = sprintf("%.1f", avg_dep_delay)), position = position_dodge(width = 0.9), vjust = -0.25)
+# Replace 'column_x' and 'column_y' with actual column names from your dataset
+flights_clean %>%
+  ggplot(aes(x = column_x, y = column_y)) +
+  geom_point() +
+  labs(title = "Scatter plot of Column X vs Column Y",
+       x = "Column X",
+       y = "Column Y")
 
-# Optionally, add a plot for average arrival delays
-ggplot(summary_delays, aes(x = reorder(airline_name, avg_arr_delay), y = avg_arr_delay)) +
-  geom_col(fill = "darkred") +
-  labs(title = "Average Arrival Delays by Airline",
-       x = "Airline",
-       y = "Average Arrival Delay (minutes)") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  geom_text(aes(label = sprintf("%.1f", avg_arr_delay)), position = position_dodge(width = 0.9), vjust = -0.25)
+# Example of grouping and summarizing the data
+flights_summary <- flights_clean %>%
+  group_by(column_group) %>%
+  summarise(mean_value = mean(column_value, na.rm = TRUE))
 
-3.8:
+# Print the summary
+print(flights_summary)
+
+#3.8:
 # Load the dplyr library
 library(dplyr)
 
@@ -47,7 +45,7 @@ flights_means <- flights %>%
 # Display the summarized data
 print(flights_means)
 
-3.9:
+#3.9:
 # Load the dplyr library
 library(dplyr)
 
@@ -61,7 +59,7 @@ flights_means_with_names <- flights_means %>%
 # Display the updated dataset
 print(flights_means_with_names)
 
-4:
+#4:
 # Install DT package if it's not already installed
 if (!require(DT)) install.packages("DT")
 
@@ -93,7 +91,7 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 
-4.1:
+#4.1:
 # Install data.table if not already installed
 if (!require(data.table)) {
   install.packages("data.table")
@@ -114,7 +112,7 @@ flights_means <- flights_dt[, .(avg_dep_delay = mean(dep_delay, na.rm = TRUE),
 # Sort by average departure delay
 setorder(flights_means, avg_dep_delay)
 
-4.2:
+#4.2:
 library(data.table)
 
 # Convert the flights dataframe to a data table
@@ -126,7 +124,7 @@ flights_summary <- flights_dt[, .(dep_delay, arr_delay), by = .(carrier)][
       mean_arr_delay = mean(arr_delay, na.rm = TRUE)), by = carrier][
         order(mean_dep_delay)]
 
-4.3:
+#4.3:
 # Tidyverse script run time
 system.time({
   mtcars %>%
