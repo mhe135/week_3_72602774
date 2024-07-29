@@ -1,4 +1,12 @@
-3.4:
+3.3:
+if (!requireNamespace("tidyverse", quietly = TRUE)) {
+  install.packages("tidyverse")}
+if (!requireNamespace("nycflights13", quietly = TRUE)) {
+  install.packages("nycflights13")}
+suppressPackageStartupMessages(library(tidyverse))
+library(nycflights13)
+
+3.4
 # Reading flights dataset
 head(flights)
 
