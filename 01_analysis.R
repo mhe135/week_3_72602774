@@ -11,14 +11,12 @@ flights_means <- flights_clean %>%
 # Display the result
 print(flights_means)
 
+
 #4.1 install datatable package
 if (!requireNamespace("data.table", quietly = TRUE)) {
   install.packages("data.table")}
-
 library(data.table)
-
 # 4.2 use datatable to replace tydyversepipeline
-
 flights_dt <- as.data.table(flights)
 
 # Data cleaning and manipulation with data.table
@@ -38,4 +36,3 @@ flights_means_dt <- flights_clean_dt[, .(
 
 # Display the result
 print(flights_means_dt)
-
