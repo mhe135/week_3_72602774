@@ -16,11 +16,9 @@ library(data.table)
 ```{r echo=FALSE}
 # 3.3 Installing and loading Tidyverse and nycflights13 packages
 if (!requireNamespace("tidyverse", quietly = TRUE)) {
-  install.packages("tidyverse")
-}
+  install.packages("tidyverse")}
 if (!requireNamespace("nycflights13", quietly = TRUE)) {
-  install.packages("nycflights13")
-}
+  install.packages("nycflights13")}
 suppressPackageStartupMessages(library(tidyverse))
 library(nycflights13)
 ```
@@ -36,7 +34,6 @@ head(flights)
 ### Flight clean
 
 ```{r echo=FALSE}
-
 #3.5 Basic Data Manipulation with dplyr
 #install dplyr library
 library(dplyr)
@@ -44,13 +41,13 @@ library(dplyr)
 flights_clean <- flights %>%
   select(year, month, day, dep_delay, arr_delay, carrier) %>%
   filter(!is.na(dep_delay) & !is.na(arr_delay))
-#3.6 join with airlines name
+#3.6 Joining with airlines name
 flights_clean <- flights_clean %>%
   left_join(airlines, by = "carrier")
 ```
 
 ```{r echo=FALSE}
-# 3.7 start new script
+# 3.7 Start new script
 #3.8 ,3.9 Calculate the amount of delay and calculate flights_means
 flights_means <- flights_clean %>%
   group_by(name) %>%
@@ -62,38 +59,32 @@ flights_means <- flights_clean %>%
 
 # Display the result
 print(flights_means)
+```
 
 
+```{r echo=FALSE}
 #4.1 install datatable package
 if (!requireNamespace("data.table", quietly = TRUE)) {
-  install.packages("data.table")
-}
-
+  install.packages("data.table")}
 library(data.table)
 ```
 
 
 ```{r echo=FALSE}
-# 4.2 use datatable to replace tydyversepipeline
-
+# 4.2 Use datatable to replace tydyversepipeline
 flights_dt <- as.data.table(flights)
-
 # Data cleaning and manipulation with data.table
 flights_clean_dt <- flights_dt[
   !is.na(dep_delay) & !is.na(arr_delay),
-  .(year, month, day, dep_delay, arr_delay, carrier)
-]
-
+  .(year, month, day, dep_delay, arr_delay, carrier)]
 # Join with airlines data to get full airline names
 airlines_dt <- as.data.table(airlines)
 flights_clean_dt <- merge(flights_clean_dt, airlines_dt, by = "carrier", all.x = TRUE)
-
 # Calculate the average departure and arrival delays for each airline
 flights_means_dt <- flights_clean_dt[, .(
   avg_dep_delay = mean(dep_delay),
   avg_arr_delay = mean(arr_delay)
 ), by = name][order(avg_dep_delay)]
-
 # Display the result
 print(flights_means_dt)
 ```
@@ -110,10 +101,8 @@ system.time({
     group_by(name) %>%
     summarize(
       avg_dep_delay = mean(dep_delay),
-      avg_arr_delay = mean(arr_delay)
-    ) %>%
-    arrange(avg_dep_delay)
-})
+      avg_arr_delay = mean(arr_delay)) %>%
+    arrange(avg_dep_delay)})
 ```
 
 ### Data.table
