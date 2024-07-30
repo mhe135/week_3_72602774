@@ -22,3 +22,7 @@ library(dplyr)
 flights_clean <- flights %>%
   select(year, month, day, dep_delay, arr_delay, carrier) %>%
   filter(!is.na(dep_delay) & !is.na(arr_delay))
+
+#3.6 join with airlines name
+flights_clean <- flights_clean %>%
+  left_join(airlines, by = "carrier")
