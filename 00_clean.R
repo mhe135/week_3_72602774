@@ -13,10 +13,6 @@ if (!requireNamespace("nycflights13", quietly = TRUE)) {
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(nycflights13))
 
-# Display the first few rows of the flights dataset
-head(flights)
-
-
 #3.4
 # Reading flights dataset
 head(flights)
