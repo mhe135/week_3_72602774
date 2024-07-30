@@ -36,3 +36,16 @@ flights_means_dt <- flights_clean_dt[, .(
 
 # Display the result
 print(flights_means_dt)
+
+
+# 4.3 Timing running time for analysis script
+system.time({
+  flights_clean <- flights %>%
+    select(year, month, day, dep_delay, arr_delay, carrier) %>%
+    filter(!is.na(dep_delay) & !is.na(arr_delay)) %>%
+    left_join(airlines, by = "carrier") %>%
+    group_by(name) %>%
+    summarize(
+      avg_dep_delay = mean(dep_delay),
+      avg_arr_delay = mean(arr_delay)) %>%
+    arrange(avg_dep_delay)})
