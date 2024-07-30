@@ -49,3 +49,4 @@ system.time({
       avg_dep_delay = mean(dep_delay),
       avg_arr_delay = mean(arr_delay)) %>%
     arrange(avg_dep_delay)})
+
