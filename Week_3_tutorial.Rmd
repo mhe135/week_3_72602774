@@ -104,6 +104,10 @@ system.time({
       avg_arr_delay = mean(arr_delay)) %>%
     arrange(avg_dep_delay)})
 ```
+# Timing running time for analysis script
+   user  system elapsed 
+  0.022   0.003   0.025 
+  
 
 ### Data.table
 
@@ -121,3 +125,7 @@ system.time({
   ), by = name][order(avg_dep_delay)]
 })
 ```
+
+# Timing running time for the data.table
+#   user  system elapsed 
+  0.031   0.010   0.044
