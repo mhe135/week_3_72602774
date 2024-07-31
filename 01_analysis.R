@@ -4,8 +4,7 @@ flights_means <- flights_clean %>%
   group_by(name) %>%
   summarize(
     avg_dep_delay = mean(dep_delay),
-    avg_arr_delay = mean(arr_delay)
-  ) %>%
+    avg_arr_delay = mean(arr_delay)) %>%
   arrange(avg_dep_delay)
 
 # Display the result
@@ -53,12 +52,10 @@ system.time({
 system.time({
   flights_clean_dt <- flights_dt[
     !is.na(dep_delay) & !is.na(arr_delay),
-    .(year, month, day, dep_delay, arr_delay, carrier)
-  ]
+    .(year, month, day, dep_delay, arr_delay, carrier)]
   flights_clean_dt <- merge(flights_clean_dt, airlines_dt, by = "carrier", all.x = TRUE)
   flights_means_dt <- flights_clean_dt[, .(
     avg_dep_delay = mean(dep_delay),
     avg_arr_delay = mean(arr_delay)
-  ), by = name][order(avg_dep_delay)]
-})
+  ), by = name][order(avg_dep_delay)]})
 

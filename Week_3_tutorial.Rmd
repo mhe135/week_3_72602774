@@ -108,7 +108,7 @@ system.time({
 ### Data.table
 
 ```{r echo=FALSE}
-# 4.3 Timing runtime for the data.table
+# 4.3 Timing running time for the data.table
 system.time({
   flights_clean_dt <- flights_dt[
     !is.na(dep_delay) & !is.na(arr_delay),
